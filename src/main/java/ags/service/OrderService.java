@@ -40,4 +40,15 @@ public class OrderService {
     public List<Order> retrieveOrders() {
         return orders;
     }
+
+    public boolean updateOrder(String reference, int bricks) {
+        Order order = new Order(reference, bricks);
+        int index = orders.indexOf(order);
+
+        if (index >= 0) {
+            orders.set(index, order);
+            return true;
+        }
+        return false;
+    }
 }

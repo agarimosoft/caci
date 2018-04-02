@@ -107,4 +107,22 @@ public class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(exampleJson));
     }
+
+    //STAGE 2
+    @Test
+    public void updateOrder() throws Exception {
+        Mockito.when(
+                service.updateOrder(Mockito.anyString(), Mockito.anyInt()))
+                .thenReturn(true);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/updateorder")
+                .param("ref", "1")
+                .param("bricks", "115");
+
+        this.mockMvc.perform(requestBuilder)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("1")));
+    }
 }
