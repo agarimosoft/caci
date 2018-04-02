@@ -158,4 +158,22 @@ public class OrderControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(containsString("")));
     }
+    
+    //STAGE 4
+    @Test
+    public void updateDispatchedOrder() throws Exception {
+        Mockito.when(
+                service.updateOrder(Mockito.anyString(), Mockito.anyInt()))
+                .thenReturn(false);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/updateorder")
+                .param("ref", "1")
+                .param("bricks", "115");
+
+        this.mockMvc.perform(requestBuilder)
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(containsString("")));
+    }
 }

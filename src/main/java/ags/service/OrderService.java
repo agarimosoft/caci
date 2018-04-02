@@ -45,7 +45,7 @@ public class OrderService {
         Order order = new Order(reference, bricks);
         int index = orders.indexOf(order);
 
-        if (index >= 0) {
+        if (index >= 0 && !orders.get(index).isDispached()) {
             orders.set(index, order);
             return true;
         }
