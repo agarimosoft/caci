@@ -55,7 +55,7 @@ public class OrderControllerTest {
     @Test
     public void retrieveOrder() throws Exception {
         Order order = new Order("1", 12);
-        String exampleJson = "{\"reference\":\"1\",\"bricks\":12}";
+        String exampleJson = "{\"reference\":\"1\",\"bricks\":12,\"dispached\":false}";
 
         Mockito.when(
                 service.retrieveOrder(Mockito.anyString()))
@@ -93,7 +93,7 @@ public class OrderControllerTest {
         orders.add(new Order("1", 10));
         orders.add(new Order("2", 11));
 
-        String exampleJson = "[{\"reference\":\"1\",\"bricks\":10},{\"reference\":\"2\",\"bricks\":11}]";
+        String exampleJson = "[{\"reference\":\"1\",\"bricks\":10,\"dispached\":false},{\"reference\":\"2\",\"bricks\":11,\"dispached\":false}]";
 
         Mockito.when(
                 service.retrieveOrders())
@@ -124,5 +124,38 @@ public class OrderControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("1")));
+    }
+
+    //STAGE 3
+    @Test
+    public void fulfilOrder() throws Exception {
+        Mockito.when(
+                service.fulfilOrder(Mockito.anyString()))
+                .thenReturn(true);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/fulfilorder")
+                .param("ref", "1");
+
+        this.mockMvc.perform(requestBuilder)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("")));
+    }
+
+    @Test
+    public void fulfilInvalidOrder() throws Exception {
+        Mockito.when(
+                service.fulfilOrder(Mockito.anyString()))
+                .thenReturn(false);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/fulfilorder")
+                .param("ref", "1");
+
+        this.mockMvc.perform(requestBuilder)
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(containsString("")));
     }
 }

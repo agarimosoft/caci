@@ -43,4 +43,12 @@ public class OrderController {
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/fulfilorder")
+    public ResponseEntity fulfilOrder(@RequestParam(value = "ref") String reference) {
+        if (orderService.fulfilOrder(reference)) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
 }

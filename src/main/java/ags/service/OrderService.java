@@ -51,4 +51,14 @@ public class OrderService {
         }
         return false;
     }
+
+    public boolean fulfilOrder(String reference) {
+        int index = orders.indexOf(new Order(reference));
+
+        if (index >= 0) {
+            orders.get(index).setDispached(true);
+            return true;
+        }
+        return false;
+    }
 }

@@ -10,6 +10,7 @@ public class Order {
 
     private String reference;
     private int bricks;
+    private boolean dispached;
 
     public Order() {
 
@@ -17,11 +18,13 @@ public class Order {
 
     public Order(String reference) {
         this.reference = reference;
+        this.dispached = false;
     }
 
     public Order(String reference, int bricks) {
         this.reference = reference;
         this.bricks = bricks;
+        this.dispached = false;
     }
 
     public String getReference() {
@@ -38,6 +41,14 @@ public class Order {
 
     public void setBricks(int bricks) {
         this.bricks = bricks;
+    }
+
+    public boolean isDispached() {
+        return dispached;
+    }
+
+    public void setDispached(boolean dispached) {
+        this.dispached = dispached;
     }
 
     @Override
